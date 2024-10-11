@@ -1,17 +1,23 @@
 version: '3'
 services:
-  ddns:
-    image: davd/docker-ddns:latest
-    #image: davd/docker-ddns:develop
-    #build: .
+  bind9:
+    container_name: mesi-dns
+    image: ubuntu/bind9:latest
+
     restart: always
     environment:
+      BIND9_USER: root
+      TZ: Asia/Bangkok
       RECORD_TTL: 60
-      ZONE: example.org
-      SHARED_SECRET: changeme
+      ZONE: mesi.asia
+      SHARED_SECRET: "k@dig78T"
     ports:
-      - "53:53"
+      - "53:53/tcp"
       - "53:53/udp"
       - "8080:8080"
-#    volumes:
-#       - ./bind-data:/var/cache/bind
+    volumes:
+       - ./config:/etc/bind
+       - ./cache:/var/cache/bind
+       - ./records:/var/lib/bind
+    restart: unless-stopped
+    

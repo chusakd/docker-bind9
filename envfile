@@ -1,3 +1,3 @@
-SHARED_SECRET=changeme
-ZONE=example.org
+SHARED_SECRET=k@dig78T
+ZONE=mesi.asia
 RECORD_TTL=3600
